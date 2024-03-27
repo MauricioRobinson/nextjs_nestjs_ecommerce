@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    restart: always
+    depends_on:
+      - backend
+    environment:
+      - API_URL=http://localhost:8000/api/v1
+    develop:
+      watch:
+        - path: ./frontend/package.json
+          action: rebuild
+        - path: ./frontend/next.config.js
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: ./frontend
+          target: /app
+          action: sync
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    restart: always
+    environment:
+      - BD_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    develop:
+      watch:
+        - path: ./backend/package.json
+          action: rebuild
+        - path: ./backend/next.config.js
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: ./backend
+          target: /app
+          action: sync
