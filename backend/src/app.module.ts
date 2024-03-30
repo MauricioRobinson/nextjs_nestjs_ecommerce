@@ -9,13 +9,7 @@ import { EnvValidator } from './config/validator.config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [
-        '.env.local',
-        '.env.development',
-        '.env.production',
-        '.env.test',
-        '.env.staging',
-      ],
+      envFilePath: ['.env'],
       isGlobal: true,
       load: [configuration, databaseConfig],
       cache: true,
