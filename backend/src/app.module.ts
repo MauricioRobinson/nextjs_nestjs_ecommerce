@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import databaseConfig from './config/database.config';
 import { EnvValidator } from './config/validator.config';
+import { UsersModule } from './users/users.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { EnvValidator } from './config/validator.config';
         abortEarly: true,
       },
     }),
+    PrismaModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
