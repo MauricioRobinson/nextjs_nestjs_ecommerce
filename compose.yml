@@ -12,6 +12,8 @@ services:
       - backend
     environment:
       - API_URL=http://localhost:8000/api/v1
+    volumes:
+      - ./frontend:/app
     develop:
       watch:
         - path: ./frontend/package.json
@@ -31,8 +33,11 @@ services:
     ports:
       - 8000:80
     restart: always
-    environment:
-      - BD_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    # environment:
+    #   - DB_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    #   - PORT=8000
+    volumes:
+      - ./backend:/app
     develop:
       watch:
         - path: ./backend/package.json
@@ -44,3 +49,7 @@ services:
         - path: ./backend
           target: /app
           action: sync
+
+volumes:
+  frontend:
+  backend:

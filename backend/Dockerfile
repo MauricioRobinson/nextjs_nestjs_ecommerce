@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.19
+FROM node:20-alpine
 
 # RUN useradd -ms /bin/sh -u 1001 app
 # USER app
@@ -16,4 +16,9 @@ EXPOSE 8000
 
 # Copy source files into application directory
 # COPY --chown=app:app . /app
-CMD [ "npm", "run", "dev" ]
+
+# Updates prisma types
+RUN npx prisma generate
+
+#Starts the server un dev mode
+CMD [ "npm", "run", "start:dev" ]

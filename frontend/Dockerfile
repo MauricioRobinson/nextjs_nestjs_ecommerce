@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.19
+FROM node:20-alpine
 
 # RUN useradd -ms /bin/sh -u 1001 app
 # USER app
