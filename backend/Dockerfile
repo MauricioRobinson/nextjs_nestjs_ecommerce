@@ -1,12 +1,14 @@
-FROM node:20-alpine
+FROM node:20-alpine as base
 
-# RUN useradd -ms /bin/sh -u 1001 app
-# USER app
+ENV DIR /app
+WORKDIR $DIR
 
-# Install dependencies
-WORKDIR /app
 
-COPY package*.json ./
+FROM base as dev
+
+ENV NODE_ENV=development
+
+COPY package*.json .
 
 RUN npm install
 
